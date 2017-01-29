@@ -21,7 +21,8 @@ int process_file(char *name) {
     strcat(newlogfilename, name);
     
     
-    
+    // insert code here...
+
     
     
     //printf("Move %s to %s\n", logfilename, newlogfilename);
@@ -47,7 +48,6 @@ int main(int argc, const char * argv[]) {
         process_file(dirent->d_name);
     }
 
-    // insert code here...
     //printf("Hello, World!\n");
     return 0;
 }
