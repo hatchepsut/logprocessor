@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:logprocessor.xcodeproj">
+      location = "self:/Users/peter/devel/logprocessor/csp.xcodeproj">
    </FileRef>
 </Workspace>

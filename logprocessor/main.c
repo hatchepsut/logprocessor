@@ -21,9 +21,6 @@ int process_file(char *name) {
     strcat(newlogfilename, name);
     
     
-    
-    
-    
     //printf("Move %s to %s\n", logfilename, newlogfilename);
     res = rename(logfilename, newlogfilename);
     //perror("rename");
