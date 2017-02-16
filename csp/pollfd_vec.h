@@ -11,9 +11,11 @@
 
 #include <poll.h>
 
+#define POLLFDS_SIZE 256
+
 typedef struct {
     int size;
-    struct pollfd fds[256];
+    struct pollfd fds[POLLFDS_SIZE];
 } pollfds_t;
 
 int pollfd_init(pollfds_t *pollfds);

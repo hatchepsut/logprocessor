@@ -18,6 +18,8 @@
 
 #define BUFFERSIZE 4096
 
+#define MAX_SESSIONS 65536
+
 
 typedef struct {
     long bytes_read;
@@ -64,39 +66,62 @@ long seconds_to_midnight() {
     
 }
 
+
 int open_error_log(char *filename) {
-    int fd=STDOUT_FILENO;
+    int fd;
     
-    if(filename != NULL) {
-        fd = open(filename, O_WRONLY|O_CREAT|O_APPEND, S_IRWXU|S_IRWXG);
+    static char *logname = "error.log";
+    
+    if(filename) logname = strdup(filename);
+    
+    
+    if(logname != NULL) {
+        fd = open(logname, O_WRONLY|O_CREAT|O_APPEND, S_IRWXU|S_IRWXG);
         if(fd < 0) {
-            fprintf(stderr, "Can't open error log: %s : %s\n", filename, strerror(errno));
+            fprintf(stderr, "Can't open error log: %s : %s\n", logname, strerror(errno));
             exit(-1);
         }
     }
     
     close(STDERR_FILENO);
     
-    return dup2(fd, STDERR_FILENO);
+    dup2(fd, STDOUT_FILENO);
+    dup2(fd, STDERR_FILENO);
+    
+    return(0);
     
 }
 
 static void logrotate(int signum)
 {
-    int fd;
     long stm;
     
     char newlogfilename[1024];
     strncpy(newlogfilename, logfilename, 1024);
     strcat(newlogfilename, ".old");
     rename(logfilename, newlogfilename);
-    fd = open_error_log(logfilename);
     char buf[256];
     stm = seconds_to_midnight();
     sprintf(buf, "Logrotation in %ld seconds\n", stm);
     alarm((int)stm); /* Set alarm to next logrotate */
     fprintf(stderr, "%s", buf);
+    open_error_log(NULL);
 }
+
+int init_log_rotate() {
+    /* Set up signalhandlning to support logfile rotation */
+    struct sigaction sa;
+    sa.sa_handler = logrotate;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    
+    if(sigaction ( SIGALRM, &sa, NULL) == -1) {
+        perror("Can't install signal handler!");
+        return(-1);
+    }
+    return(0);
+}
+
 
 char *timestr() {
     static char *tstr;
@@ -128,7 +153,7 @@ int main(int argc, char *argv[]) {
     
     //ssize_t retval;
     
-    session_t sessions[65536];
+    session_t sessions[MAX_SESSIONS];
     
     int content_length=0;
     char clbuf[16];
@@ -149,33 +174,29 @@ int main(int argc, char *argv[]) {
     
     char timebuf[256];
     
-    /* Set up signalhandlning to support logfile rotation */
-    struct sigaction sa;
-    sa.sa_handler = logrotate;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    
-    if(sigaction ( SIGALRM, &sa, NULL) == -1) {
-        perror("Can't install signal handler!");
-        return(-1);
-    }
     
     while ((c = getopt(argc, argv, "td:l:r:")) != -1) {
         switch (c) {
             case 'd':
                 logpath = strdup(optarg);
                 break;
+                
             case 'h':
                 loghealthcheck = 1;
+
             case 'l':
-                logfilename = strdup(optarg);
+                open_error_log(optarg);
+                init_log_rotate();
                 break;
+
             case 'r':
                 polltimeout = atoi(optarg);
                 break;
+
             case 't':
                 fprintf(stderr, "OK\n");
                 exit(0);
+
             default:
                 fprintf(stderr, "Usage: %s [-t]\n", argv[0]);
                 exit(-1);
@@ -183,8 +204,6 @@ int main(int argc, char *argv[]) {
         
     }
     
-    // Open logfile and set timer for logrotate
-    open_error_log(logfilename);
     int stm = (int)seconds_to_midnight();
     alarm(stm); /* Set alarm to when logrotation should happen */
     
@@ -210,6 +229,7 @@ int main(int argc, char *argv[]) {
     
     pollfd_add(&pollfds, lsock);
     
+    // Initialize sessions table
     memset(sessions, 0, sizeof(sessions));
     
 #if DAEMON
@@ -234,10 +254,14 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 #endif
+
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    lastcheck = now;
+    
     fprintf(stderr, "Entering endless loop!\n");
     while(1) {
         
-        nsocks = poll(pollfds.fds, pollfds.size, 100000);
+        nsocks = poll(pollfds.fds, pollfds.size, polltimeout);
         
         if(nsocks == -1) {
             perror("poll");
@@ -252,10 +276,10 @@ int main(int argc, char *argv[]) {
         /* Check each socket for timeout every 3 seconds */
         if(now.tv_sec - lastcheck.tv_sec > 3 ) {
             lastcheck.tv_sec = now.tv_sec;
-            for(int sock=lsock+1; sock < 65536; sock++) {
+            for(int sock=lsock+1; sock < MAX_SESSIONS; sock++) {
                 if(sessions[sock].read_time == 0) continue; // Skip not used sockets
-                if(now.tv_sec - sessions[sock].read_time >= 300) {
-                    fprintf(stderr, "%s: Closing socket: %d timeout!\n", timestr(), sock);
+                if(now.tv_sec - sessions[sock].read_time >= 3) {
+                    fprintf(stderr, "%s: Closing socket(%d): %llu timeout!\n", timestr(), sock, now.tv_sec - sessions[sock].read_time);
                     close_connection(sessions, sock);
                 }
             }
@@ -278,7 +302,11 @@ int main(int argc, char *argv[]) {
                 csock = accept(lsock, NULL, 0);
                 fprintf(stderr, "%s: Accepting client on socket %d.\n", timestr(), csock);
                 
-                pollfd_add(&pollfds, csock);
+                if(pollfd_add(&pollfds, csock) < 0) {
+                    fprintf(stderr, "Can't add socket to poll structure. To many connected users?");
+                    close_connection(sessions, esock);
+                };
+                
                 pollfds.fds[csock].events = POLLIN|POLLHUP|POLLERR;
                 pollfds.fds[csock].revents = 0;
                 
@@ -286,7 +314,7 @@ int main(int argc, char *argv[]) {
                 sessions[csock].body = 0;
                 sessions[csock].bytes_read = 0;
                 sessions[csock].bytes_left_to_read = BUFFERSIZE;
-                sessions[csock].read_time = now.tv_sec;
+                sessions[csock].read_time =  now.tv_sec;
                 sessions[csock].write_time = now.tv_sec;
                 sessions[csock].buf = (char *)malloc(BUFFERSIZE);
                 memset(sessions[csock].buf, 0, BUFFERSIZE);
@@ -331,7 +359,7 @@ int main(int argc, char *argv[]) {
                         sessions[esock].body = strstr(sessions[esock].buf, "\r\n\r\n");
                         if(sessions[esock].body) {
                             sessions[esock].body += 4; // Skip past \r\n\r\n
-                            cl = strcasestr(sessions[esock].buf, "Content-Length:");
+                            cl = strcasestr(sessions[esock].buf, "Content-length:");
                             if(cl > '\0') {
                                 cl += 15; // Jump past header name
                                 while(*cl == ' ') cl++; // Skip optional space

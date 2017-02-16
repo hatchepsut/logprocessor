@@ -14,6 +14,7 @@ int pollfd_init(pollfds_t *pollfds) {
 }
 
 int pollfd_add(pollfds_t *pollfds, int fd) {
+    if(pollfds->size >= POLLFDS_SIZE) return(-1);
     pollfds->fds[pollfds->size].fd = fd;
     pollfds->fds[pollfds->size].events = POLLIN;
     pollfds->fds[pollfds->size].revents = 0;

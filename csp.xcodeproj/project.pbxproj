@@ -13,6 +13,7 @@
 		D0AEBDE21E4F10240054125E /* csp.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE01E4F10190054125E /* csp.c */; };
 		D0AEBDE51E536C840054125E /* pollfd_vec.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE31E536C840054125E /* pollfd_vec.c */; };
 		D0AEBDE61E537EFB0054125E /* pollfd_vec.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE31E536C840054125E /* pollfd_vec.c */; };
+		D0AEBDE81E557A8C0054125E /* strcasestr.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE71E557A8C0054125E /* strcasestr.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,8 @@
 		D0AEBDE01E4F10190054125E /* csp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csp.c; path = csp/csp.c; sourceTree = "<group>"; };
 		D0AEBDE31E536C840054125E /* pollfd_vec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pollfd_vec.c; path = csp/pollfd_vec.c; sourceTree = "<group>"; };
 		D0AEBDE41E536C840054125E /* pollfd_vec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pollfd_vec.h; path = csp/pollfd_vec.h; sourceTree = "<group>"; };
+		D0AEBDE71E557A8C0054125E /* strcasestr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = strcasestr.c; path = csp/strcasestr.c; sourceTree = "<group>"; };
+		D0AEBDE91E557B3E0054125E /* str-two-way.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "str-two-way.h"; path = "csp/str-two-way.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				D0AEBDE01E4F10190054125E /* csp.c */,
 				D0AEBDE31E536C840054125E /* pollfd_vec.c */,
 				D0AEBDE41E536C840054125E /* pollfd_vec.h */,
+				D0AEBDE71E557A8C0054125E /* strcasestr.c */,
+				D0AEBDE91E557B3E0054125E /* str-two-way.h */,
 			);
 			name = csp;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				D0AEBDE51E536C840054125E /* pollfd_vec.c in Sources */,
 				D0AEBDE11E4F10190054125E /* csp.c in Sources */,
 				D088F1F71E37DE78009013A6 /* main.c in Sources */,
+				D0AEBDE81E557A8C0054125E /* strcasestr.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +356,7 @@
 				D0AEBDDC1E4F0F9A0054125E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
