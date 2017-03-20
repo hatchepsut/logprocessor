@@ -8,25 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D088F1F71E37DE78009013A6 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = D088F1F61E37DE78009013A6 /* main.c */; };
-		D0AEBDD01E4F05D50054125E /* dummy in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0AEBDCF1E4F05CD0054125E /* dummy */; };
-		D0AEBDE11E4F10190054125E /* csp.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE01E4F10190054125E /* csp.c */; };
 		D0AEBDE21E4F10240054125E /* csp.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE01E4F10190054125E /* csp.c */; };
-		D0AEBDE51E536C840054125E /* pollfd_vec.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE31E536C840054125E /* pollfd_vec.c */; };
 		D0AEBDE61E537EFB0054125E /* pollfd_vec.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE31E536C840054125E /* pollfd_vec.c */; };
-		D0AEBDE81E557A8C0054125E /* strcasestr.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AEBDE71E557A8C0054125E /* strcasestr.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D088F1F11E37DE78009013A6 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = logs;
-			dstSubfolderSpec = 16;
-			files = (
-				D0AEBDD01E4F05D50054125E /* dummy in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D0AEBDD41E4F0F9A0054125E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,15 +25,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D04608C41E7E99E700FD73FE /* csplog-127.0.0.1-876-0.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "csplog-127.0.0.1-876-0.log"; sourceTree = "<group>"; };
 		D088F1F31E37DE78009013A6 /* logprocessor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = logprocessor; sourceTree = BUILT_PRODUCTS_DIR; };
 		D088F1F61E37DE78009013A6 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		D0AEBDCF1E4F05CD0054125E /* dummy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dummy; sourceTree = "<group>"; };
 		D0AEBDD61E4F0F9A0054125E /* csp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = csp; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AEBDE01E4F10190054125E /* csp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csp.c; path = csp/csp.c; sourceTree = "<group>"; };
 		D0AEBDE31E536C840054125E /* pollfd_vec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pollfd_vec.c; path = csp/pollfd_vec.c; sourceTree = "<group>"; };
 		D0AEBDE41E536C840054125E /* pollfd_vec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pollfd_vec.h; path = csp/pollfd_vec.h; sourceTree = "<group>"; };
-		D0AEBDE71E557A8C0054125E /* strcasestr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = strcasestr.c; path = csp/strcasestr.c; sourceTree = "<group>"; };
-		D0AEBDE91E557B3E0054125E /* str-two-way.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "str-two-way.h"; path = "csp/str-two-way.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				D088F1F61E37DE78009013A6 /* main.c */,
-				D0AEBDCF1E4F05CD0054125E /* dummy */,
+				D04608C41E7E99E700FD73FE /* csplog-127.0.0.1-876-0.log */,
 			);
 			path = logprocessor;
 			sourceTree = "<group>";
@@ -101,8 +85,6 @@
 				D0AEBDE01E4F10190054125E /* csp.c */,
 				D0AEBDE31E536C840054125E /* pollfd_vec.c */,
 				D0AEBDE41E536C840054125E /* pollfd_vec.h */,
-				D0AEBDE71E557A8C0054125E /* strcasestr.c */,
-				D0AEBDE91E557B3E0054125E /* str-two-way.h */,
 			);
 			name = csp;
 			sourceTree = "<group>";
@@ -116,7 +98,7 @@
 			buildPhases = (
 				D088F1EF1E37DE78009013A6 /* Sources */,
 				D088F1F01E37DE78009013A6 /* Frameworks */,
-				D088F1F11E37DE78009013A6 /* CopyFiles */,
+				D02140771E7EA93900A36EF0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -187,15 +169,29 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D02140771E7EA93900A36EF0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "[ -d ${TARGET_BUILD_DIR}/processing ] || mkdir ${TARGET_BUILD_DIR}/logs\n[ -d ${TARGET_BUILD_DIR}/processing ] || mkdir ${TARGET_BUILD_DIR}/processing\n[ -d ${TARGET_BUILD_DIR}/finished ]   || mkdir ${TARGET_BUILD_DIR}/finished\n \n #rm -f ${TARGET_BUILD_DIR}/logs/csplog*\nrm -f ${TARGET_BUILD_DIR}/processing/csplog*\nrm -f ${TARGET_BUILD_DIR}/finished/csplog*";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D088F1EF1E37DE78009013A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0AEBDE51E536C840054125E /* pollfd_vec.c in Sources */,
-				D0AEBDE11E4F10190054125E /* csp.c in Sources */,
 				D088F1F71E37DE78009013A6 /* main.c in Sources */,
-				D0AEBDE81E557A8C0054125E /* strcasestr.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +215,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -235,9 +231,9 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -266,7 +262,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -282,9 +278,9 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -302,6 +298,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
+				GCC_VERSION = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -310,6 +313,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_VERSION = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -317,6 +326,7 @@
 		D0AEBDDB1E4F0F9A0054125E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -324,6 +334,7 @@
 		D0AEBDDC1E4F0F9A0054125E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

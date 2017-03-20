@@ -1,0 +1,23 @@
+TIME: 1489920577
+POST /csp/report/kalle/kula HTTP/1.1
+Host: localhost:8090
+Connection: keep-alive
+Content-Length: 307
+Postman-Token: 48e64cc0-927f-858c-067e-c90ff0168307
+Cache-Control: no-cache
+Origin: chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: sv,en-US;q=0.8,en;q=0.6
+
+{
+  "csp-report": {
+    "document-uri": "http://example.com/signup.html",
+    "referrer": "",
+    "blocked-uri": "http://example.com/css/style.css",
+    "violated-directive": "style-src cdn.example.com",
+    "original-policy": "default-src 'none'; style-src cdn.example.com; report-uri /_/csp-reports"
+  }
+}

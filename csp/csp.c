@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
     
     
     char ip[INET_ADDRSTRLEN];
-    char *logpath=".";
+    char *logpath="logs";
     
     //ssize_t retval;
     
